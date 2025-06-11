@@ -1,0 +1,15 @@
+[global]
+developmentMode = false
+
+[server]
+runOnSave = true
+port = 8501
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#3b82f6"
+backgroundColor = "#1e3a8a"
+secondaryBackgroundColor = "#2563eb"
+textColor = "#ffffff"
