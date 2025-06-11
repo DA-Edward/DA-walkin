@@ -17,13 +17,35 @@ st.set_page_config(
 # Custom CSS for iPad optimization and navy blue theme
 st.markdown("""
 <style>
+    /* Force background color override */
+    .stApp > div:first-child {
+        background-color: #0B0B45 !important;
+    }
+    
     .main {
-        background-color: #0B0B45;
-        color: white;
+        background-color: #0B0B45 !important;
+        color: white !important;
     }
     
     .stApp {
-        background-color: #0B0B45;
+        background-color: #0B0B45 !important;
+    }
+    
+    /* Override Streamlit's default backgrounds */
+    .block-container {
+        background-color: #0B0B45 !important;
+    }
+    
+    div[data-baseweb="base-input"] {
+        background-color: #0B0B45 !important;
+    }
+    
+    .stApp > header {
+        background-color: transparent !important;
+    }
+    
+    .stApp > div > div {
+        background-color: #0B0B45 !important;
     }
     
     .customer-form {
