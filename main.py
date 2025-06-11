@@ -18,12 +18,12 @@ st.set_page_config(
 st.markdown("""
 <style>
     .main {
-        background-color: #000080;
+        background-color: #0B0B45;
         color: white;
     }
     
     .stApp {
-        background-color: #000080;
+        background-color: #0B0B45;
     }
     
     .customer-form {
