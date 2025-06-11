@@ -222,14 +222,26 @@ def authenticate():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
+        st.markdown('<div class="customer-form">', unsafe_allow_html=True)
+        
         password = st.text_input("Enter Password", type="password", key="auth_password")
         
-        if st.button("Login", key="login_btn"):
-            if password == "admin123":  # Change this password as needed
-                st.session_state.authenticated = True
+        col_login, col_back = st.columns(2)
+        with col_login:
+            if st.button("Login", key="login_btn"):
+                if password == "admin123":  # Change this password as needed
+                    st.session_state.authenticated = True
+                    st.session_state.current_page = 'queue'  # Go directly to queue after login
+                    st.rerun()
+                else:
+                    st.error("Invalid password!")
+        
+        with col_back:
+            if st.button("← Back to Form", key="back_to_form"):
+                st.session_state.current_page = 'public'
                 st.rerun()
-            else:
-                st.error("Invalid password!")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # Public form page
 def public_form():
@@ -416,14 +428,17 @@ def display_all_customers():
 
 # Main app logic
 def main():
-    if not st.session_state.authenticated and st.session_state.current_page in ['auth', 'queue', 'customers']:
-        if st.session_state.current_page == 'auth':
-            authenticate()
-        else:
-            st.session_state.current_page = 'public'
-            st.rerun()
+    # Handle authentication page
+    if st.session_state.current_page == 'auth':
+        authenticate()
+    # Handle authenticated backend pages
     elif st.session_state.authenticated and st.session_state.current_page in ['queue', 'customers']:
         backend_dashboard()
+    # Handle unauthenticated backend access attempts
+    elif not st.session_state.authenticated and st.session_state.current_page in ['queue', 'customers']:
+        st.session_state.current_page = 'auth'
+        st.rerun()
+    # Default to public form
     else:
         public_form()
 
